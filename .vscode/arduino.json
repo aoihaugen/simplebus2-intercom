@@ -1,5 +1,5 @@
 {
     "board": "arduino:avr:uno",
     "programmer": "arduino:avrisp",
-    "sketch": "AllInOneArduino\\Door_Arduino_copy_20220408111756\\Door_Arduino_copy_20220408111756.ino"
+    "sketch": "AllInOneArduino\\Alohamora.ino"
 }
