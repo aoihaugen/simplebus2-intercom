@@ -87,6 +87,7 @@ void setup()
   pinMode(BUS_TX, OUTPUT);
 }
 
+
 void bus_rx()
 {
   listening = true;
@@ -181,9 +182,9 @@ bool checksum()
       sum++;
     }
   }
-  
+
   checksum = (message[17] * 8) + (message[16] * 4) + (message[15] * 2) + message[14];
-  
+
   if (checksum == sum)
   {
     return true;
