@@ -17,17 +17,6 @@ void setup() {
 
 }
 
-void loop() {
-  if(digitalRead(BUS_RX == HIGH)){
-    bus_rx();
-  }
-  if(listening && (millis()-lastheard) > 64){
-    listening = false;
-    bits= 0;
-  }
-  
-}
-
 void bus_rx(){
   listening = true;
   while(digitalRead(BUS_RX == HIGH)){
@@ -236,4 +225,15 @@ void processMessage(int msgCode, int msgAddr)
       break;
     }
   }
+}
+
+void loop() {
+  if(digitalRead(BUS_RX == HIGH)){
+    bus_rx();
+  }
+  if(listening && (millis()-lastheard) > 64){
+    listening = false;
+    bits= 0;
+  }
+  
 }
