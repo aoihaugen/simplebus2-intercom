@@ -37,7 +37,7 @@ const int INTERCOM_TX = 1;    // Connect to the RX pin of the HC-12
   #endif
 #endif
 
-const int MY_ADDRESS = 12;
+const int MY_ADDRESS = 1;
 const int SILENT_MODE_COLOR  = CRGB::Blue;
 
 ///////////////////////////////////////////////////////////////////////////////
