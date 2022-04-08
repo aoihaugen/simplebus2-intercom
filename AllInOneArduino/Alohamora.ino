@@ -7,7 +7,80 @@ int result[2];
 long int lastheard;
 bool listening = false;
 
+///////////////////////////////////////////////////////////////////////////////
+// Message codes
+// 
 
+// Sent from intercoms to call the main switchboard.
+#define MSG_CALL_TO_MAIN_SWITCHBOARD         8
+
+// Sent from intercoms to call the caretaker phone (K).
+#define MSG_CALL_CARETAKER_DOOR_ENTRY_PHONE  9
+
+// Open building's entry door (AP). Sent when the intercom's open door button 
+// is pushed. User ID tells who's opening the door.
+#define MSG_OPEN_DOOR                       16
+
+// Sent when the user hooks off the intercom's handset.
+#define MSG_HOOK_OFF                        17
+
+// Sent when the user hooks on the intercom's handset.
+#define MSG_HOOK_ON                         18
+
+// Send from intercoms to call the secondary switchboard. In model the 
+// secondary button can be configured to send this message by setting the JP1
+// jumper to position C.
+#define MSG_CALL_TO_SECONDARY_SWITCHBOARD   19
+
+// Turns on the video camera and the intercom's screen (AI).
+#define MSG_CAMERA_ON                       20
+
+// Sent when the external switch connected to the CFP terminals is closed.
+#define MSG_CALL_FROM_FLOOR_DOOR            21
+
+// Sent by one intercom to call other intercomms (INT).
+#define MSG_CALL_INTERCOM                   24
+
+// After sending MSG_CALL_INTERCOM three consecutive
+// MSG_CALL_INTERCOM_RESPONSE are sent.
+#define MSG_CALL_INTERCOM_RESPONSE          26
+
+// Activates a generic actuator. In model the secondary button can be
+// configured to send this message by setting the JP1 jumper to position A.
+#define MSG_GENERIC_ACTUATOR                29
+
+// High prioritary call to main switchboard (PAN).
+#define MSG_HIGH_PRIO_CALL_TO_MAIN_SWITCHBOARD  30
+
+// Sent from switchboard for calling an intercom.
+#define MSG_CALL_FROM_SWITCHBOARD_1         32
+
+// After sending this message I got a MSG_HOOK_ON, but only once. What does
+// this mean?.
+#define MSG_UNKNOWN_1                       33
+
+
+#define MSG_CALL_FROM_SWITCHBOARD_2             37
+#define MSG_CALL_FROM_SWITCHBOARD_3             42
+#define MSG_CALL_FROM_SWITCHBOARD_4             43
+#define MSG_CALL_FROM_SWITCHBOARD_5_SCREEN_ON   45
+
+
+// Sent when someone calls at the building's entry. The ring tone is played
+// once per each message, this message is usually sent two times, followed by 
+// MSG_CALL_FROM_ENTRY_DOOR_SCREEN_ON.
+#define MSG_CALL_FROM_ENTRY_DOOR            48
+
+// Sent when the screen is turned off ?????
+#define MSG_SCREEN_OFF                      49
+
+// Similar to MSG_RING_TONE but also makes the intercom turn on the video 
+// screen.
+#define MSG_CALL_FROM_ENTRY_DOOR_SCREEN_ON  50
+
+
+#define MSG_START_BLINKING_OPEN_DOOR_BTN    51
+#define MSG_STOP_BLINKING_OPEN_DOOR_BTN     52
 
 void setup() {
   Serial.begin(9600);
@@ -102,80 +175,7 @@ int howLong(int a, int b){
   return b-a;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Message codes
-// 
 
-// Sent from intercoms to call the main switchboard.
-#define MSG_CALL_TO_MAIN_SWITCHBOARD         8
-
-// Sent from intercoms to call the caretaker phone (K).
-#define MSG_CALL_CARETAKER_DOOR_ENTRY_PHONE  9
-
-// Open building's entry door (AP). Sent when the intercom's open door button 
-// is pushed. User ID tells who's opening the door.
-#define MSG_OPEN_DOOR                       16
-
-// Sent when the user hooks off the intercom's handset.
-#define MSG_HOOK_OFF                        17
-
-// Sent when the user hooks on the intercom's handset.
-#define MSG_HOOK_ON                         18
-
-// Send from intercoms to call the secondary switchboard. In model the 
-// secondary button can be configured to send this message by setting the JP1
-// jumper to position C.
-#define MSG_CALL_TO_SECONDARY_SWITCHBOARD   19
-
-// Turns on the video camera and the intercom's screen (AI).
-#define MSG_CAMERA_ON                       20
-
-// Sent when the external switch connected to the CFP terminals is closed.
-#define MSG_CALL_FROM_FLOOR_DOOR            21
-
-// Sent by one intercom to call other intercomms (INT).
-#define MSG_CALL_INTERCOM                   24
-
-// After sending MSG_CALL_INTERCOM three consecutive
-// MSG_CALL_INTERCOM_RESPONSE are sent.
-#define MSG_CALL_INTERCOM_RESPONSE          26
-
-// Activates a generic actuator. In model the secondary button can be
-// configured to send this message by setting the JP1 jumper to position A.
-#define MSG_GENERIC_ACTUATOR                29
-
-// High prioritary call to main switchboard (PAN).
-#define MSG_HIGH_PRIO_CALL_TO_MAIN_SWITCHBOARD  30
-
-// Sent from switchboard for calling an intercom.
-#define MSG_CALL_FROM_SWITCHBOARD_1         32
-
-// After sending this message I got a MSG_HOOK_ON, but only once. What does
-// this mean?.
-#define MSG_UNKNOWN_1                       33
-
-
-#define MSG_CALL_FROM_SWITCHBOARD_2             37
-#define MSG_CALL_FROM_SWITCHBOARD_3             42
-#define MSG_CALL_FROM_SWITCHBOARD_4             43
-#define MSG_CALL_FROM_SWITCHBOARD_5_SCREEN_ON   45
-
-
-// Sent when someone calls at the building's entry. The ring tone is played
-// once per each message, this message is usually sent two times, followed by 
-// MSG_CALL_FROM_ENTRY_DOOR_SCREEN_ON.
-#define MSG_CALL_FROM_ENTRY_DOOR            48
-
-// Sent when the screen is turned off ?????
-#define MSG_SCREEN_OFF                      49
-
-// Similar to MSG_RING_TONE but also makes the intercom turn on the video 
-// screen.
-#define MSG_CALL_FROM_ENTRY_DOOR_SCREEN_ON  50
-
-
-#define MSG_START_BLINKING_OPEN_DOOR_BTN    51
-#define MSG_STOP_BLINKING_OPEN_DOOR_BTN     52
 
  void bintodec(){
   int msgAddr[6];
